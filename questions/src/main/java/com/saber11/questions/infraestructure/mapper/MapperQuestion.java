@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MapperQuestion {
-    Question toQuestion(QuestionData questionData) {
+    public Question toQuestion(QuestionData questionData) {
         Question question = new Question(
                 questionData.getId(),
                 questionData.getArea(),
@@ -20,7 +20,7 @@ public class MapperQuestion {
         );
         return question;
     }
-    QuestionData toQuestionData(Question question) {
+    public QuestionData toQuestionData(Question question) {
         QuestionData questionData = new QuestionData(
                 question.getId(),
                 question.getArea(),
