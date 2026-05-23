@@ -26,10 +26,10 @@ public class QuestionUseCase {
         return questionGateway.findAllQuestions();
     }
 
-    Question updateQuestion(Question question){
+    public Question updateQuestion(Question question){
         return questionGateway.updateQuestion(question);
     }
-    void deleteQuestionById(Long id){
+    public void deleteQuestionById(Long id){
         questionGateway.deleteQuestionById(id);
     }
 }
