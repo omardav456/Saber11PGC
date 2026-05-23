@@ -2,10 +2,14 @@ package com.saber11.questions.infraestructure.driver_adapters.jpa_repository;
 
 import com.saber11.questions.domain.model.Area;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class QuestionData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
