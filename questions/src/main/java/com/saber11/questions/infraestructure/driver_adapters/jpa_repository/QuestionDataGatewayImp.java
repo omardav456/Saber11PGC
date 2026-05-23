@@ -25,7 +25,7 @@ public class QuestionDataGatewayImp  implements QuestionGateway {
     @Override
     public Question findQuestionById(Long id) {
         try{
-            QuestionData questionData = questionDataJpaRepository.findById(id);
+            QuestionData questionData = questionDataJpaRepository.findById(id).get();
             return mapperQuestion.toQuestion(questionData);
         }catch(Exception e){
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class QuestionDataGatewayImp  implements QuestionGateway {
     @Override
     public List<Question> findQuestionsByArea(Area area) {
         try{
-            List<QuestionData> questionsData = questionDataJpaRepository.findByArea(area);
+            List<QuestionData> questionsData = questionDataJpaRepository.findByArea(area).get();
 
             List<Question> questions= questionsData.stream()
                     .map(questionData -> mapperQuestion.toQuestion(questionData))
