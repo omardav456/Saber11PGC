@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 public class Question {
     Long id;
     Area area;
-    String  question;
-    String  answer;
-    String optionA;
-    String optionB;
-    String optionC;
-    String optionD;
-    String justification;
+    private String  question;
+    private String  answer;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
+    private String justification;
 
 
 }
