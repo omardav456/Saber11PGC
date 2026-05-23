@@ -3,12 +3,17 @@ package com.saber11.questions.domain.usecase;
 import com.saber11.questions.domain.model.Area;
 import com.saber11.questions.domain.model.Question;
 import com.saber11.questions.domain.model.gateway.QuestionGateway;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class QuestionUseCase {
 
     QuestionGateway questionGateway;
+
 
     public Question createQuestion(Question question){
         return questionGateway.createQuestion(question);
