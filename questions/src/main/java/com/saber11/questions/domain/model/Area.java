@@ -5,5 +5,6 @@ public enum Area {
     LECTURACRITICA,
     SOCIALESYCIUDADANAS,
     CIENCIASNATURALES,
-    INGLES
+    INGLES;
+
 }

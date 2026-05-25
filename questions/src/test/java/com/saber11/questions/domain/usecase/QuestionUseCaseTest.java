@@ -1,5 +1,6 @@
 package com.saber11.questions.domain.usecase;
 
+import com.saber11.questions.domain.model.AnswerOption;
 import com.saber11.questions.domain.model.Area;
 import com.saber11.questions.domain.model.Question;
 import com.saber11.questions.domain.model.gateway.QuestionGateway;
@@ -31,7 +32,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         question.setOptionC("optionC");
@@ -103,21 +104,7 @@ class QuestionUseCaseTest {
         //Act y Assert
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> {questionUseCase.createQuestion(question);});
-        assertEquals("Answer cannot be null",exception.getMessage());
-
-    }
-
-    @Test
-    void createQuestionConAnswerVaciaNoValido() {
-        //Arrange
-        Question question = new Question();
-        question.setArea(Area.MATEMATICAS);
-        question.setQuestion("question");
-        question.setAnswer(" ");
-        //Act y Assert
-        IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> {questionUseCase.createQuestion(question);});
-        assertEquals("Answer cannot be null",exception.getMessage());
+        assertEquals("AnswerOption cannot be null",exception.getMessage());
 
     }
 
@@ -127,7 +114,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         //Act y Assert
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> {questionUseCase.createQuestion(question);});
@@ -141,7 +128,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA(" ");
         //Act y Assert
         IllegalArgumentException exception =
@@ -156,7 +143,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         //Act y Assert
         IllegalArgumentException exception =
@@ -171,7 +158,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB(" ");
         //Act y Assert
@@ -187,7 +174,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         //Act y Assert
@@ -203,7 +190,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB("OptionB");
         question.setOptionC(" ");
@@ -220,7 +207,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         question.setOptionC("optionC");
@@ -237,7 +224,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB("OptionB");
         question.setOptionC("OptionC");
@@ -255,7 +242,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         question.setOptionC("optionC");
@@ -273,7 +260,7 @@ class QuestionUseCaseTest {
         Question question = new Question();
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB("OptionB");
         question.setOptionC("OptionC");
@@ -361,7 +348,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         question.setOptionC("optionC");
@@ -444,22 +431,7 @@ class QuestionUseCaseTest {
         //Act y Assert
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> {questionUseCase.updateQuestion(question);});
-        assertEquals("Answer cannot be null",exception.getMessage());
-
-    }
-
-    @Test
-    void updateQuestionConAnswerVaciaNoValido() {
-        //Arrange
-        Question question = new Question();
-        question.setId(1L);
-        question.setArea(Area.MATEMATICAS);
-        question.setQuestion("question");
-        question.setAnswer(" ");
-        //Act y Assert
-        IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> {questionUseCase.updateQuestion(question);});
-        assertEquals("Answer cannot be null",exception.getMessage());
+        assertEquals("AnswerOption cannot be null",exception.getMessage());
 
     }
 
@@ -470,7 +442,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         //Act y Assert
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> {questionUseCase.updateQuestion(question);});
@@ -485,7 +457,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA(" ");
         //Act y Assert
         IllegalArgumentException exception =
@@ -501,7 +473,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         //Act y Assert
         IllegalArgumentException exception =
@@ -517,7 +489,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB(" ");
         //Act y Assert
@@ -534,7 +506,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         //Act y Assert
@@ -551,7 +523,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB("OptionB");
         question.setOptionC(" ");
@@ -569,7 +541,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         question.setOptionC("optionC");
@@ -587,7 +559,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB("OptionB");
         question.setOptionC("OptionC");
@@ -606,7 +578,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("optionA");
         question.setOptionB("optionB");
         question.setOptionC("optionC");
@@ -625,7 +597,7 @@ class QuestionUseCaseTest {
         question.setId(1L);
         question.setArea(Area.MATEMATICAS);
         question.setQuestion("question");
-        question.setAnswer("answer");
+        question.setAnswerOption(AnswerOption.A);
         question.setOptionA("OptionA");
         question.setOptionB("OptionB");
         question.setOptionC("OptionC");

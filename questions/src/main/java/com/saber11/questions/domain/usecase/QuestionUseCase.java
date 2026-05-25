@@ -24,8 +24,8 @@ public class QuestionUseCase {
         if (question.getQuestion() == null || question.getQuestion().trim().isEmpty()) {
             throw new IllegalArgumentException("Question question cannot be null");
         }
-        if (question.getAnswer()==null || question.getAnswer().trim().isEmpty()) {
-            throw new IllegalArgumentException("Answer cannot be null");
+        if (question.getAnswerOption()==null) {
+            throw new IllegalArgumentException("AnswerOption cannot be null");
         }
         if (question.getOptionA()==null  || question.getOptionA().trim().isEmpty()) {
             throw new IllegalArgumentException("Option A cannot be null");
@@ -76,8 +76,8 @@ public class QuestionUseCase {
         if (question.getQuestion() == null || question.getQuestion().trim().isEmpty()) {
             throw new IllegalArgumentException("Question question cannot be null");
         }
-        if (question.getAnswer()==null || question.getAnswer().trim().isEmpty()) {
-            throw new IllegalArgumentException("Answer cannot be null");
+        if (question.getAnswerOption()==null) {
+            throw new IllegalArgumentException("AnswerOption cannot be null");
         }
         if (question.getOptionA()==null  || question.getOptionA().trim().isEmpty()) {
             throw new IllegalArgumentException("Option A cannot be null");

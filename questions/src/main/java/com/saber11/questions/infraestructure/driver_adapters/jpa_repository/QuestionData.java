@@ -1,5 +1,6 @@
 package com.saber11.questions.infraestructure.driver_adapters.jpa_repository;
 
+import com.saber11.questions.domain.model.AnswerOption;
 import com.saber11.questions.domain.model.Area;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,8 @@ public class QuestionData {
     @Column(nullable = false)
     private String  question;
     @Column(nullable = false)
-    private String  answer;
+    @Enumerated(EnumType.STRING)
+    private AnswerOption answerOption;
     @Column(nullable = false)
     private String optionA;
     @Column(nullable = false)

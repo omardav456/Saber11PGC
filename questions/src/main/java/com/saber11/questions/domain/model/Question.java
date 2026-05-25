@@ -11,7 +11,7 @@ public class Question {
     private Long id;
     private Area area;
     private String  question;
-    private String  answer;
+    private AnswerOption answerOption;
     private String optionA;
     private String optionB;
     private String optionC;
