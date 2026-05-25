@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class Question {
-    Long id;
-    Area area;
+    private Long id;
+    private Area area;
     private String  question;
     private String  answer;
     private String optionA;

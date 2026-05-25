@@ -24,28 +24,24 @@ public class QuestionDataGatewayImp  implements QuestionGateway {
 
     @Override
     public Question findQuestionById(Long id) {
-        try{
-            QuestionData questionData = questionDataJpaRepository.findById(id).get();
-            return mapperQuestion.toQuestion(questionData);
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
+
+        QuestionData questionData = questionDataJpaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Question id not found"));
+        return mapperQuestion.toQuestion(questionData);
+
     }
 
     @Override
     public List<Question> findQuestionsByArea(Area area) {
-        try{
-            List<QuestionData> questionsData = questionDataJpaRepository.findByArea(area).get();
 
-            List<Question> questions= questionsData.stream()
-                    .map(questionData -> mapperQuestion.toQuestion(questionData))
-                    .toList();
-            return questions;
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
+        List<QuestionData> questionsData = questionDataJpaRepository.findByArea(area)
+                .orElseThrow(() ->new RuntimeException("Questions not found") );
+
+        List<Question> questions= questionsData.stream()
+                .map(questionData -> mapperQuestion.toQuestion(questionData))
+                .toList();
+        return questions;
+
     }
 
     @Override
