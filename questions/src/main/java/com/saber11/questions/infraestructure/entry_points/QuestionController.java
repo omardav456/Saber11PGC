@@ -45,8 +45,8 @@ public class QuestionController {
     public ResponseEntity<Question> updateQuestion(@RequestBody Question question){
         return ResponseEntity.ok(questionUseCase.updateQuestion(question));
     }
-    @DeleteMapping("/")
-    public ResponseEntity deleteQuestionById(Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteQuestionById(@PathVariable Long id){
         questionUseCase.deleteQuestionById(id);
         return ResponseEntity.ok().build();
 

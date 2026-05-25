@@ -56,7 +56,8 @@ public class QuestionDataGatewayImp  implements QuestionGateway {
 
     @Override
     public Question updateQuestion(Question question) {
-        //TODO Implementar update
+        questionDataJpaRepository.findById(question.getId());
+        questionDataJpaRepository.save(mapperQuestion.toQuestionData(question));
         return null;
     }
 
