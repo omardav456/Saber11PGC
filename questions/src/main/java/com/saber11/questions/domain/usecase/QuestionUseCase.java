@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class QuestionUseCase {
 
     private final QuestionGateway questionGateway;
