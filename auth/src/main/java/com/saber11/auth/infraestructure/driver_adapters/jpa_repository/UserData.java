@@ -1,9 +1,7 @@
 package com.saber11.auth.infraestructure.driver_adapters.jpa_repository;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.saber11.auth.domain.model.Rol;
+import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.Email;
 
@@ -22,5 +20,7 @@ public class UserData {
     @Email
     private String correo;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
 
 }
