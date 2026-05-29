@@ -2,6 +2,7 @@ package com.saber11.auth.infraestructure.mapper;
 
 import com.saber11.auth.domain.model.User;
 import com.saber11.auth.infraestructure.driver_adapters.jpa_repository.UserData;
+import com.saber11.auth.infraestructure.dto.UserResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,6 +26,14 @@ public class UserMapper {
                 userData.getPassword(),
                 userData.getRol()
 
+        );
+    }
+
+    public UserResponse toUserResponse(User user){
+        return new UserResponse(
+                user.getNombre(),
+                user.getCorreo(),
+                user.getRol()
         );
     }
 }
