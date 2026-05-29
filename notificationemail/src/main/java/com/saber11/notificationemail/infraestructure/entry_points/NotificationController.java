@@ -36,10 +36,6 @@ public class NotificationController {
         );
     }
 
-    // ==========================================
-    // REGISTRO EXITOSO
-    // ==========================================
-
     @PostMapping("/register")
     public ResponseEntity<String> sendRegisterSuccess(
             @RequestBody NotificationRequest request
@@ -58,7 +54,7 @@ public class NotificationController {
     }
 
 
-    @PostMapping("/simulation-result")
+    @PostMapping("/result")
     public ResponseEntity<String> sendSimulationResult(
             @RequestBody NotificationRequest request
     ){
@@ -76,7 +72,7 @@ public class NotificationController {
     }
 
 
-    @PostMapping("/exam-link")
+    @PostMapping("/link")
     public ResponseEntity<String> sendExamLink(
             @RequestBody NotificationRequest request
     ){

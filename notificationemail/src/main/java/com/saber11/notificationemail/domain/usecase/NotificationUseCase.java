@@ -63,9 +63,6 @@ public class NotificationUseCase {
         return "Correo de registro enviado";
     }
 
-    // ==========================================
-    // RESULTADOS SIMULACRO
-    // ==========================================
 
     public String sendSimulationResult(Notification notification){
 
