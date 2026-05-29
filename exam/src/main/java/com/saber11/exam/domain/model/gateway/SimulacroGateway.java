@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SimulacroGateway {
     Simulacro createSimulacro(Simulacro sumulacro);
-    Simulacro getSimulacroByArea(Area area);
+    Simulacro getSimulacroByCategoria(Area area);
     void deleteSimulacro(Long id);
     Simulacro getSimulacroById(Long id);
     List<Simulacro> getAllSimulacro();
