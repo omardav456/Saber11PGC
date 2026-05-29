@@ -9,18 +9,25 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/saber11/notificationemail")
 @RequiredArgsConstructor
 
 public class NotificationController {
+
     private final NotificationUseCase notificationUseCase;
     private final NotificationMapper notificationMapper;
+
     @PostMapping("/send")
+
     public ResponseEntity<String> sendEmail(
+
             @RequestBody NotificationRequest request) {
+
         Notification notification = notificationMapper.toNotification(request);
         String response = notificationUseCase.sendEmail(notification);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -6,10 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+
 public class UseCaseConfig {
     @Bean
+
     public NotificationUseCase notificationUseCase(
+
             NotificationGateway notificationGateway){
+
         return new NotificationUseCase(notificationGateway);
     }
 }
