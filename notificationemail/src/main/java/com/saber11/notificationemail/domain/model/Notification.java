@@ -14,6 +14,9 @@ import lombok.Setter;
 public class Notification {
 
     private String to;
-    private String subject;
-    private String body;
+    private String studentName;
+    private String score;
+    private String examLink;
+    private String pdfPath;
+    private String platformLink;
 }

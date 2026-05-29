@@ -10,18 +10,126 @@ public class NotificationUseCase {
 
     public String sendEmail(Notification notification){
 
-        if(notification.getTo() == null || notification.getTo().isBlank()){
+        if(notification.getTo() == null ||
+                notification.getTo().isBlank()){
 
-            throw new RuntimeException("Correo destino obligatorio"); }
+            throw new RuntimeException(
+                    "Correo destino obligatorio"
+            );
+        }
 
-        if(notification.getSubject() == null || notification.getSubject().isBlank()){
+        if(notification.getStudentName() == null ||
+                notification.getStudentName().isBlank()){
 
-            throw new RuntimeException("Asunto obligatorio"); }
+            throw new RuntimeException(
+                    "Nombre obligatorio"
+            );
+        }
 
-        if(notification.getBody() == null || notification.getBody().isBlank()){
+        if(notification.getPlatformLink() == null ||
+                notification.getPlatformLink().isBlank()){
 
-            throw new RuntimeException("Mensaje obligatorio"); } notificationGateway.sendEmail(notification);
+            throw new RuntimeException(
+                    "Link plataforma obligatorio"
+            );
+        }
 
-        return "Correo enviado correctamente";
+        notificationGateway.sendEmail(notification);
+
+        return "Correo de bienvenida enviado";
+    }
+
+
+    public String sendRegisterSuccess(Notification notification){
+
+        if(notification.getTo() == null ||
+                notification.getTo().isBlank()){
+
+            throw new RuntimeException(
+                    "Correo destino obligatorio"
+            );
+        }
+
+        if(notification.getStudentName() == null ||
+                notification.getStudentName().isBlank()){
+
+            throw new RuntimeException(
+                    "Nombre obligatorio"
+            );
+        }
+
+        notificationGateway.sendRegisterSuccess(notification);
+
+        return "Correo de registro enviado";
+    }
+
+    // ==========================================
+    // RESULTADOS SIMULACRO
+    // ==========================================
+
+    public String sendSimulationResult(Notification notification){
+
+        if(notification.getTo() == null ||
+                notification.getTo().isBlank()){
+
+            throw new RuntimeException(
+                    "Correo destino obligatorio"
+            );
+        }
+
+        if(notification.getStudentName() == null ||
+                notification.getStudentName().isBlank()){
+
+            throw new RuntimeException(
+                    "Nombre obligatorio"
+            );
+        }
+
+        if(notification.getScore() == null ||
+                notification.getScore().isBlank()){
+
+            throw new RuntimeException(
+                    "Puntaje obligatorio"
+            );
+        }
+
+        notificationGateway.sendSimulationResult(notification);
+
+        return "Resultado enviado correctamente";
+    }
+
+    // ==========================================
+    // LINK SIMULACRO
+    // ==========================================
+
+    public String sendExamLink(Notification notification){
+
+        if(notification.getTo() == null ||
+                notification.getTo().isBlank()){
+
+            throw new RuntimeException(
+                    "Correo destino obligatorio"
+            );
+        }
+
+        if(notification.getStudentName() == null ||
+                notification.getStudentName().isBlank()){
+
+            throw new RuntimeException(
+                    "Nombre obligatorio"
+            );
+        }
+
+        if(notification.getExamLink() == null ||
+                notification.getExamLink().isBlank()){
+
+            throw new RuntimeException(
+                    "Link del simulacro obligatorio"
+            );
+        }
+
+        notificationGateway.sendExamLink(notification);
+
+        return "Link simulacro enviado";
     }
 }

@@ -20,15 +20,77 @@ public class NotificationController {
     private final NotificationMapper notificationMapper;
 
     @PostMapping("/send")
-
     public ResponseEntity<String> sendEmail(
+            @RequestBody NotificationRequest request
+    ){
 
-            @RequestBody NotificationRequest request) {
+        Notification notification =
+                notificationMapper.toNotification(request);
 
-        Notification notification = notificationMapper.toNotification(request);
-        String response = notificationUseCase.sendEmail(notification);
+        String response =
+                notificationUseCase.sendEmail(notification);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                response,
+                HttpStatus.OK
+        );
+    }
+
+    // ==========================================
+    // REGISTRO EXITOSO
+    // ==========================================
+
+    @PostMapping("/register")
+    public ResponseEntity<String> sendRegisterSuccess(
+            @RequestBody NotificationRequest request
+    ){
+
+        Notification notification =
+                notificationMapper.toNotification(request);
+
+        String response =
+                notificationUseCase.sendRegisterSuccess(notification);
+
+        return new ResponseEntity<>(
+                response,
+                HttpStatus.OK
+        );
+    }
+
+
+    @PostMapping("/simulation-result")
+    public ResponseEntity<String> sendSimulationResult(
+            @RequestBody NotificationRequest request
+    ){
+
+        Notification notification =
+                notificationMapper.toNotification(request);
+
+        String response =
+                notificationUseCase.sendSimulationResult(notification);
+
+        return new ResponseEntity<>(
+                response,
+                HttpStatus.OK
+        );
+    }
+
+
+    @PostMapping("/exam-link")
+    public ResponseEntity<String> sendExamLink(
+            @RequestBody NotificationRequest request
+    ){
+
+        Notification notification =
+                notificationMapper.toNotification(request);
+
+        String response =
+                notificationUseCase.sendExamLink(notification);
+
+        return new ResponseEntity<>(
+                response,
+                HttpStatus.OK
+        );
     }
 }
 

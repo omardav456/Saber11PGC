@@ -15,7 +15,11 @@ public class NotificationMapper {
         return new Notification(
 
                 notificationRequest.getTo(),
-                notificationRequest.getSubject(),
-                notificationRequest.getBody());
+                notificationRequest.getStudentName(),
+                notificationRequest.getScore(),
+                notificationRequest.getExamLink(),
+                notificationRequest.getPdfPath(),
+                notificationRequest.getPlatformLink()
+        );
     }
 }

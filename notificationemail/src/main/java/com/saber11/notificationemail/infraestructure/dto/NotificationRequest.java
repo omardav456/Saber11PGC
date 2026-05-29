@@ -7,6 +7,9 @@ import lombok.Data;
 public class NotificationRequest {
 
     private String to;
-    private String subject;
-    private String body;
+    private String studentName;
+    private String score;
+    private String examLink;
+    private String pdfPath;
+    private String platformLink;
 }
