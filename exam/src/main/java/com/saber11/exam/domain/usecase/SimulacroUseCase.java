@@ -1,6 +1,7 @@
 package com.saber11.exam.domain.usecase;
 
 import com.saber11.exam.domain.model.Area;
+import com.saber11.exam.domain.model.Categoria;
 import com.saber11.exam.domain.model.Simulacro;
 import com.saber11.exam.domain.model.gateway.SimulacroGateway;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class SimulacroUseCase {
         return simulacroGateway.createSimulacro(simulacro);
 
     }
-    public Simulacro getSimulacroByArea(Area area){
-        return simulacroGateway.getSimulacroByArea(area);
+    public List<Simulacro> getSimulacroByCategoria(Categoria categoria) {
+        return simulacroGateway.getSimulacroByCategoria(categoria);
     }
 
     public void deleteSimulacro(Long id){

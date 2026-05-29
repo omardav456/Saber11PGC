@@ -26,9 +26,10 @@ public class SimulacroDataGatewayImp implements SimulacroGateway {
     }
 
     @Override
-    public Simulacro getSimulacroByCategoria(Categoria categoria) {
-        SimulacroData simulacro = simulacroDataJpaRepository.findByCategoria(categoria).orElseThrow(() -> new RuntimeException("No existe"));
-        return mapperSimulacro.toSimulacro(simulacro);
+    public List<Simulacro> getSimulacroByCategoria(Categoria categoria) {
+        List<SimulacroData> simulacrosData = simulacroDataJpaRepository.findByCategoria(categoria).orElseThrow(() -> new RuntimeException("No existe"));
+        List<Simulacro> simulacros= simulacrosData.stream().map(simulacroData -> mapperSimulacro.toSimulacro(simulacroData)).toList();
+        return mapperSimulacro.toSimulacro(simulacros);
     }
 
     @Override
