@@ -13,13 +13,13 @@ import java.util.List;
 public class QuestionApiAdapter implements QuestionGateway {
 
     private final WebClient webClient;
-
+    String url= System.getenv("URL_ALL_QUESTIONS");
 
     @Override
     public List<Question> getQuestions() {
         return webClient
                 .get()
-                .uri("http://localhost:8080/api/saber11/question/getAll")
+                .uri(url)
                 .retrieve()
                 .bodyToFlux(Question.class)
                 .collectList()
