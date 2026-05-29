@@ -5,7 +5,7 @@ import com.saber11.auth.infraestructure.driver_adapters.jpa_repository.UserData;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UsuarioMapper {
+public class UserMapper {
 
     public UserData toUserData(User user){
        return new UserData(
