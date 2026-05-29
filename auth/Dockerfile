@@ -1,11 +1,13 @@
-FROM gradle:8.14-jdk21 AS build
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
 COPY . .
 
-RUN gradle bootJar --no-daemon
+RUN chmod +x gradlew
 
-FROM eclipse-temurin:21-jdk
+RUN ./gradlew bootJar
 
-WORKDIR /app
+EXPOSE 8080
+
+CMD ["java", "-jar", "build/libs/auth-0.0.1-SNAPSHOT.jar"]
