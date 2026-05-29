@@ -19,6 +19,12 @@ public class UserController {
     private final UserUseCase userUseCase;
     private final UserMapper userMapper;
 
+
+    @GetMapping("/")
+    public String home() {
+        return "API funcionando";
+    }
+    
     @PostMapping("/save")
     public ResponseEntity<UserResponse> saveUser(@RequestBody UserData userData,
                                                  @RequestHeader(value = "admincedula", required = false) String adminCedula) {
