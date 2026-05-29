@@ -11,24 +11,23 @@ import java.util.List;
 public class SimulacroUseCase {
     private final SimulacroGateway simulacroGateway;
 
-    public Simulacro createSimulacro(){
-        return simulacroGateway.createSimulacro();
+    public Simulacro createSimulacro(Simulacro simulacro) {
+        return simulacroGateway.createSimulacro(simulacro);
 
     }
     public Simulacro getSimulacroByArea(Area area){
         return simulacroGateway.getSimulacroByArea(area);
     }
-    public Simulacro updateSimulacro(Simulacro simulacro){
-        return simulacroGateway.updateSimulacro(simulacro);
-    }
+
     public void deleteSimulacro(Long id){
         simulacroGateway.deleteSimulacro(id);
     }
     public Simulacro getSimulacroById(Long id){
         return simulacroGateway.getSimulacroById(id);
     }
-    public List<Simulacro> getAllSimulacro(Long id){
-        return simulacroGateway.getAllSimulacro(id);
+
+    public List<Simulacro> getAllSimulacro(){
+        return simulacroGateway.getAllSimulacro();
     }
 
 }
