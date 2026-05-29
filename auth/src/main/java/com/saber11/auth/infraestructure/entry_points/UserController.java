@@ -20,8 +20,9 @@ public class UserController {
     private final UserMapper userMapper;
 
     @PostMapping("/save")
-    public ResponseEntity<UserResponse> saveUser(@RequestBody UserData userData) {
-        User userOK = userUseCase.saveUser(userMapper.toUser(userData));
+    public ResponseEntity<UserResponse> saveUser(@RequestBody UserData userData,
+                                                 @RequestHeader(value = "admincedula", required = false) String adminCedula) {
+        User userOK = userUseCase.saveUser(userMapper.toUser(userData), adminCedula);
 
         if(userOK.getCedula() !=null){
             return new ResponseEntity<UserResponse>(userMapper.toUserResponse(userOK), HttpStatus.OK);
@@ -30,10 +31,10 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<User> actuUser(@RequestBody UserData userData){
+    public ResponseEntity<User> actuUser(@RequestBody UserData userData,
+                                          @RequestHeader(value = "admincedula", required = false) String adminCedula){
 
-        User userActu = userUseCase.actuUser(userMapper.toUser(userData)
-        );
+        User userActu = userUseCase.actuUser(userMapper.toUser(userData), adminCedula);
 
         return new ResponseEntity<>(userActu, HttpStatus.OK);
     }

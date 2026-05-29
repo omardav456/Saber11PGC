@@ -1,6 +1,7 @@
 package com.saber11.auth.infraestructure.driver_adapters.jpa_repository;
 
 
+import com.saber11.auth.domain.model.Rol;
 import com.saber11.auth.domain.model.User;
 import com.saber11.auth.domain.model.gateway.UserGateway;
 import com.saber11.auth.infraestructure.mapper.UserMapper;
@@ -41,6 +42,15 @@ public class UserDataGatewayImpl implements UserGateway {
     }
 
     @Override
+    public User searchByEmail(String correo){
+        UserData userData = userDataJpaRepository.findByCorreo(correo).orElse(null);
+        if (userData == null) {
+            return null;
+        }
+        return userMapper.toUser(userData);
+    }
+
+    @Override
     public void deleteUserCC(String cedula) {
         userDataJpaRepository.deleteById(cedula);
     }
@@ -52,6 +62,11 @@ public class UserDataGatewayImpl implements UserGateway {
         UserData userData = userDataJpaRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         return userMapper.toUser(userData);
+    }
+
+    @Override
+    public boolean existsByRol(Rol rol){
+        return userDataJpaRepository.existsByRol(rol);
     }
 
 
