@@ -64,7 +64,7 @@ public class NotificationGatewayImpl implements NotificationGateway {
             e.printStackTrace();
 
             throw new RuntimeException(
-                    e.getMessage()
+                    "Error enviando correo: " + e.getMessage()
             );
         }
     }
@@ -107,7 +107,7 @@ public class NotificationGatewayImpl implements NotificationGateway {
             e.printStackTrace();
 
             throw new RuntimeException(
-                    e.getMessage()
+                    "Error enviando correo: " + e.getMessage()
             );
         }
     }

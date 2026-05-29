@@ -13,8 +13,33 @@ public class GlobalExceptionHandler {
 
     public ResponseEntity<String> manejarError(RuntimeException ex){
 
-        return new ResponseEntity<>(
+        if(ex.getMessage().toLowerCase().contains("obligatorio")){
 
-                ex.getMessage(),HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<>(
+                    ex.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        if(ex.getMessage().toLowerCase().contains("correo")){
+
+            return new ResponseEntity<>(
+                    ex.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        if(ex.getMessage().toLowerCase().contains("smtp")){
+
+            return new ResponseEntity<>(
+                    "Error con servidor de correo",
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+
+        return new ResponseEntity<>(
+                ex.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 }

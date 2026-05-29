@@ -1,12 +1,17 @@
 package com.saber11.notificationemail.domain.usecase;
+
 import com.saber11.notificationemail.domain.model.Notification;
 import com.saber11.notificationemail.domain.model.gateway.NotificationGateway;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 
 public class NotificationUseCase {
+
     private final NotificationGateway notificationGateway;
+
+    public NotificationUseCase(
+            NotificationGateway notificationGateway
+    ) {
+        this.notificationGateway = notificationGateway;
+    }
 
     public String sendEmail(Notification notification){
 
@@ -94,10 +99,6 @@ public class NotificationUseCase {
 
         return "Resultado enviado correctamente";
     }
-
-    // ==========================================
-    // LINK SIMULACRO
-    // ==========================================
 
     public String sendExamLink(Notification notification){
 
