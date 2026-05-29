@@ -6,6 +6,7 @@ import com.saber11.exam.domain.model.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "exam")
 @AllArgsConstructor
+@NoArgsConstructor
 public class SimulacroData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class SimulacroData {
     private Categoria categoria;
     @Column()
     private Integer tiempoLimite;
+    @ElementCollection
     private List<Question> questions;
 
 }

@@ -2,6 +2,7 @@ package com.saber11.exam.infraestructure.driver_adapters.jpa_repository;
 
 import com.saber11.exam.domain.model.Area;
 import com.saber11.exam.domain.model.Categoria;
+import com.saber11.exam.domain.model.Question;
 import com.saber11.exam.domain.model.Simulacro;
 import com.saber11.exam.domain.model.gateway.SimulacroGateway;
 import com.saber11.exam.infraestructure.mapper.MapperSimulacro;
@@ -26,10 +27,19 @@ public class SimulacroDataGatewayImp implements SimulacroGateway {
     }
 
     @Override
+    public Simulacro createSimulacroAuto(List<Question> questions) {
+        SimulacroData simulacroData= new SimulacroData();
+        simulacroData.setCategoria(Categoria.REAL);
+        simulacroData.setQuestions(questions);
+        simulacroDataJpaRepository.save(simulacroData);
+        return mapperSimulacro.toSimulacro(simulacroData);
+    }
+
+    @Override
     public List<Simulacro> getSimulacroByCategoria(Categoria categoria) {
         List<SimulacroData> simulacrosData = simulacroDataJpaRepository.findByCategoria(categoria).orElseThrow(() -> new RuntimeException("No existe"));
         List<Simulacro> simulacros= simulacrosData.stream().map(simulacroData -> mapperSimulacro.toSimulacro(simulacroData)).toList();
-        return mapperSimulacro.toSimulacro(simulacros);
+        return simulacros;
     }
 
     @Override
