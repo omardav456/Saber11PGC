@@ -191,7 +191,7 @@ public class NotificationGatewayImpl implements NotificationGateway {
             );
 
             String html =
-                    loadTemplate("exam-link.html");
+                    loadTemplate("examen-link.html");
 
             html = html.replace(
                     "{{name}}",
@@ -217,7 +217,7 @@ public class NotificationGatewayImpl implements NotificationGateway {
         }
     }
 
-    private String loadTemplate(String templateName) {
+    protected String loadTemplate(String templateName) {
 
         try {
 

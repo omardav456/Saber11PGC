@@ -10,4 +10,8 @@ class NotificationemailApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void applicationStartsWithMainMethod() {
+		NotificationemailApplication.main(new String[]{});
+	}
 }

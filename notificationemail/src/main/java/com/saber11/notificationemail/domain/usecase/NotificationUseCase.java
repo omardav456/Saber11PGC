@@ -12,7 +12,6 @@ public class NotificationUseCase {
     ) {
         this.notificationGateway = notificationGateway;
     }
-
     public String sendEmail(Notification notification){
 
         if(notification.getTo() == null ||
