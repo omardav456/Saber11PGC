@@ -140,22 +140,20 @@ public class UserUseCase {
     }
 
     private void validateRoleAssignment(Rol targetRol, String adminCedula) {
-        if (targetRol == Rol.DOCENTE || targetRol == Rol.ADMINISTRADOR) {
-            if (!userGateway.existsByRol(Rol.ADMINISTRADOR)) {
-                return;
-            }
+        if (!userGateway.existsByRol(Rol.ADMINISTRADOR)) {
+            return;
+        }
 
-            if (adminCedula == null || adminCedula.isBlank()) {
-                throw new RuntimeException("Se requiere un administrador para asignar este rol");
-            }
+        if (adminCedula == null || adminCedula.isBlank()) {
+            throw new RuntimeException("Se requiere un administrador para asignar este rol");
+        }
 
-            User admin = userGateway.searchUserCC(adminCedula);
-            if (admin == null) {
-                throw new RuntimeException("Administrador no encontrado");
-            }
-            if (admin.getRol() != Rol.ADMINISTRADOR) {
-                throw new RuntimeException("Solo un administrador puede asignar este rol");
-            }
+        User admin = userGateway.searchUserCC(adminCedula);
+        if (admin == null) {
+            throw new RuntimeException("Administrador no encontrado");
+        }
+        if (admin.getRol() != Rol.ADMINISTRADOR) {
+            throw new RuntimeException("Solo un administrador puede asignar este rol");
         }
     }
 
