@@ -3,32 +3,39 @@ package com.saber11.notificationemail.domain.usecase;
 import com.saber11.notificationemail.domain.model.Notification;
 import com.saber11.notificationemail.domain.model.gateway.NotificationGateway;
 
+import java.util.regex.Pattern;
+
 public class NotificationUseCase {
 
     private final NotificationGateway notificationGateway;
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
     public NotificationUseCase(
             NotificationGateway notificationGateway
     ) {
         this.notificationGateway = notificationGateway;
     }
+
+    private void validateEmail(String to) {
+        if (to == null || to.isBlank()) {
+            throw new RuntimeException("Correo destino obligatorio");
+        }
+        if (!EMAIL_PATTERN.matcher(to.trim()).matches()) {
+            throw new RuntimeException("Formato de correo inválido");
+        }
+    }
+
+    private void validateName(String studentName) {
+        if (studentName == null || studentName.isBlank()) {
+            throw new RuntimeException("Nombre obligatorio");
+        }
+    }
+
     public String sendEmail(Notification notification){
 
-        if(notification.getTo() == null ||
-                notification.getTo().isBlank()){
-
-            throw new RuntimeException(
-                    "Correo destino obligatorio"
-            );
-        }
-
-        if(notification.getStudentName() == null ||
-                notification.getStudentName().isBlank()){
-
-            throw new RuntimeException(
-                    "Nombre obligatorio"
-            );
-        }
+        validateEmail(notification.getTo());
+        validateName(notification.getStudentName());
 
         if(notification.getPlatformLink() == null ||
                 notification.getPlatformLink().isBlank()){
@@ -46,21 +53,8 @@ public class NotificationUseCase {
 
     public String sendRegisterSuccess(Notification notification){
 
-        if(notification.getTo() == null ||
-                notification.getTo().isBlank()){
-
-            throw new RuntimeException(
-                    "Correo destino obligatorio"
-            );
-        }
-
-        if(notification.getStudentName() == null ||
-                notification.getStudentName().isBlank()){
-
-            throw new RuntimeException(
-                    "Nombre obligatorio"
-            );
-        }
+        validateEmail(notification.getTo());
+        validateName(notification.getStudentName());
 
         notificationGateway.sendRegisterSuccess(notification);
 
@@ -70,21 +64,8 @@ public class NotificationUseCase {
 
     public String sendSimulationResult(Notification notification){
 
-        if(notification.getTo() == null ||
-                notification.getTo().isBlank()){
-
-            throw new RuntimeException(
-                    "Correo destino obligatorio"
-            );
-        }
-
-        if(notification.getStudentName() == null ||
-                notification.getStudentName().isBlank()){
-
-            throw new RuntimeException(
-                    "Nombre obligatorio"
-            );
-        }
+        validateEmail(notification.getTo());
+        validateName(notification.getStudentName());
 
         if(notification.getScore() == null ||
                 notification.getScore().isBlank()){
@@ -101,21 +82,8 @@ public class NotificationUseCase {
 
     public String sendExamLink(Notification notification){
 
-        if(notification.getTo() == null ||
-                notification.getTo().isBlank()){
-
-            throw new RuntimeException(
-                    "Correo destino obligatorio"
-            );
-        }
-
-        if(notification.getStudentName() == null ||
-                notification.getStudentName().isBlank()){
-
-            throw new RuntimeException(
-                    "Nombre obligatorio"
-            );
-        }
+        validateEmail(notification.getTo());
+        validateName(notification.getStudentName());
 
         if(notification.getExamLink() == null ||
                 notification.getExamLink().isBlank()){

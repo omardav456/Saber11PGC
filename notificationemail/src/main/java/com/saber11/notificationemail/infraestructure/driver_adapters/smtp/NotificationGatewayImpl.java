@@ -107,7 +107,7 @@ public class NotificationGatewayImpl implements NotificationGateway {
             e.printStackTrace();
 
             throw new RuntimeException(
-                    "Error enviando correo: " + e.getMessage()
+                    "Error cargando plantilla: " + e.getMessage()
             );
         }
     }

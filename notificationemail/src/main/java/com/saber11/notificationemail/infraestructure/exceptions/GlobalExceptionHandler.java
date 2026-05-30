@@ -29,10 +29,21 @@ public class GlobalExceptionHandler {
             );
         }
 
-        if(ex.getMessage().toLowerCase().contains("smtp")){
+        if(ex.getMessage().toLowerCase().contains("smtp") ||
+                ex.getMessage().toLowerCase().contains("mail server") ||
+                ex.getMessage().toLowerCase().contains("authentication failed") ||
+                ex.getMessage().toLowerCase().contains("plantilla")){
 
             return new ResponseEntity<>(
                     "Error con servidor de correo",
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+
+        if(ex.getMessage().toLowerCase().contains("enviando correo")){
+
+            return new ResponseEntity<>(
+                    ex.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
