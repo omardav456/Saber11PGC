@@ -1,0 +1,105 @@
+:root {
+  --bg: #0b0f19;
+  --card: #121826;
+  --primary: #6c5ce7;
+  --text: #eaeaea;
+  --muted: #9aa4b2;
+}
+
+* {
+  margin: 0;
+  font-family: system-ui;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #0f1424;
+  padding: 20px;
+  border-right: 1px solid #1f2937;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #2a2f45;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #1b2236;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* VIEWS */
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* BUTTON */
+.danger {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* OPTIONS */
+.option {
+  background: #1a2234;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #27324a;
+}

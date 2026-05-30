@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulacros Saber 11</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>Saber 11</h2>
+
+    <button onclick="showView('home')">Simulacros</button>
+    <button onclick="showView('exam')">Examen</button>
+    <button onclick="showView('result')">Resultados</button>
+    <button onclick="loadAdmin()">Admin</button>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- HOME -->
+    <section id="home" class="view active">
+      <h1>Simulacros disponibles</h1>
+
+      <div id="examGrid" class="grid"></div>
+    </section>
+
+    <!-- EXAM -->
+    <section id="exam" class="view">
+      <h1 id="examTitle"></h1>
+
+      <div class="card" id="questionBox"></div>
+
+      <button class="danger" onclick="finishExam()">Finalizar</button>
+    </section>
+
+    <!-- RESULT -->
+    <section id="result" class="view">
+      <h1>Resultados</h1>
+
+      <div class="card" id="resultBox"></div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="admin" class="view">
+      <h1>Admin</h1>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Preguntas</h3>
+          <p id="totalQuestions">-</p>
+        </div>
+
+        <div class="card">
+          <h3>Simulacros</h3>
+          <p id="totalExams">-</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
