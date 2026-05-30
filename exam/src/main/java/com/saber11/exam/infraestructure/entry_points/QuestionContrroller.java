@@ -25,6 +25,13 @@ public class QuestionContrroller {
          Simulacro simulacro= simulacroUseCase.createSimulacro(mapperSimulacro.toSimulacro(sumulacroData));
          return new ResponseEntity<>(simulacro, HttpStatus.CREATED);
     }
+
+    @PostMapping("/auto/")
+    public ResponseEntity<Simulacro> createSimulacroAuto(){
+        Simulacro simulacro= simulacroUseCase.createSimulacroAuto();
+        return new ResponseEntity<>(simulacro, HttpStatus.CREATED);
+    }
+
     @GetMapping("/categoria/{categoria}")
     public ResponseEntity<List<Simulacro>> getSimulacroByCategoria(@PathVariable Categoria categoria){
         List<Simulacro> simulacro= simulacroUseCase.getSimulacroByCategoria(categoria);
