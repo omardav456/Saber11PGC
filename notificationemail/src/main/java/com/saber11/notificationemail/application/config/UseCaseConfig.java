@@ -4,6 +4,7 @@ import com.saber11.notificationemail.domain.model.gateway.NotificationGateway;
 import com.saber11.notificationemail.domain.usecase.NotificationUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 
@@ -15,5 +16,10 @@ public class UseCaseConfig {
             NotificationGateway notificationGateway){
 
         return new NotificationUseCase(notificationGateway);
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }

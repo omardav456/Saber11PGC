@@ -31,6 +31,7 @@ public class GlobalExceptionHandler {
 
         if(ex.getMessage().toLowerCase().contains("smtp") ||
                 ex.getMessage().toLowerCase().contains("mail server") ||
+                ex.getMessage().toLowerCase().contains("mailtrap") ||
                 ex.getMessage().toLowerCase().contains("authentication failed") ||
                 ex.getMessage().toLowerCase().contains("plantilla")){
 
