@@ -48,7 +48,7 @@ public class SimulacroUseCase {
             selectedQuestionIds.addAll(
                     questionsByArea.stream()
                             .limit(50)
-                            .map(Question::getId)   // 👈 AQUÍ está el cambio clave
+                            .map(Question::getId)
                             .toList()
             );
         }
