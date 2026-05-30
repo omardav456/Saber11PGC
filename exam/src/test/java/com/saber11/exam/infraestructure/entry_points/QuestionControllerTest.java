@@ -29,7 +29,7 @@ class QuestionControllerTest {
     private MapperSimulacro mapperSimulacro;
 
     @InjectMocks
-    private QuestionContrroller controller;
+    private SimulacroContrroller controller;
 
     @Test
     void createSimulacroReturnsCreated() {

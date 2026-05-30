@@ -4,9 +4,7 @@ import com.saber11.exam.domain.model.Categoria;
 import com.saber11.exam.domain.model.Simulacro;
 import com.saber11.exam.domain.usecase.SimulacroUseCase;
 import com.saber11.exam.infraestructure.driver_adapters.jpa_repository.SimulacroData;
-import com.saber11.exam.infraestructure.driver_adapters.jpa_repository.SimulacroDataJpaRepository;
 import com.saber11.exam.infraestructure.mapper.MapperSimulacro;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/saber11/simulacro")
 @RequiredArgsConstructor
-public class QuestionContrroller {
+public class SimulacroContrroller {
     private final SimulacroUseCase simulacroUseCase;
     private final MapperSimulacro mapperSimulacro;
 
@@ -26,11 +24,7 @@ public class QuestionContrroller {
          Simulacro simulacro= simulacroUseCase.createSimulacro(mapperSimulacro.toSimulacro(sumulacroData));
          return new ResponseEntity<>(simulacro, HttpStatus.CREATED);
     }
-    @PostConstruct
-    public void test() {
-        System.out.println("URL_ALL_QUESTIONS = "
-                + System.getenv("URL_ALL_QUESTIONS"));
-    }
+
 
     @PostMapping("/auto/")
     public ResponseEntity<Simulacro> createSimulacroAuto(){
@@ -53,7 +47,7 @@ public class QuestionContrroller {
         Simulacro simulacro=simulacroUseCase.getSimulacroById(id);
         return new ResponseEntity<>(simulacro, HttpStatus.OK);
     }
-
+    @GetMapping("/getAll")
     public ResponseEntity<List<Simulacro>> getAllSimulacro(){
         return new ResponseEntity<>(simulacroUseCase.getAllSimulacro(), HttpStatus.OK);
     }
