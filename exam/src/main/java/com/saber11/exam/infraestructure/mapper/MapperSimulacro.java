@@ -12,7 +12,7 @@ public class MapperSimulacro {
                 simulacroData.getId(),
                 simulacroData.getCategoria(),
                 simulacroData.getTiempoLimite(),
-                simulacroData.getQuestions()
+                simulacroData.getQuestionsId()
         );
         return simulacro;
     }
@@ -21,7 +21,7 @@ public class MapperSimulacro {
                 simulacro.getId(),
                 simulacro.getCategoria(),
                 simulacro.getTiempoLimite(),
-                simulacro.getQuestions()
+                simulacro.getQuestionIds()
         );
         return simulacroData;
     }

@@ -23,18 +23,18 @@ public class SimulacroUseCase {
             throw new RuntimeException("simulacro is null");
         } else if (simulacro.getCategoria()==null) {
             throw new RuntimeException("simulacro.categoria is null");
-        }else if (simulacro.getQuestions()==null) {
+        }else if (simulacro.getQuestionIds()==null) {
             throw new RuntimeException("simulacro.questions is null");
-        }else if (simulacro.getQuestions().size()==0) {
+        }else if (simulacro.getQuestionIds().size()==0) {
             throw new RuntimeException("simulacro.questions is empty");
         }
         return simulacroGateway.createSimulacro(simulacro);
 
     }
     public Simulacro createSimulacroAuto() {
-        List<Question> questions= questionGateway.getQuestions();
-        List<Question> selectedQuestions =
-                new ArrayList<>();
+        List<Question> questions = questionGateway.getQuestions();
+
+        List<Long> selectedQuestionIds = new ArrayList<>();
 
         for (Area area : Area.values()) {
 
@@ -45,16 +45,17 @@ public class SimulacroUseCase {
 
             Collections.shuffle(questionsByArea);
 
-            selectedQuestions.addAll(
+            selectedQuestionIds.addAll(
                     questionsByArea.stream()
                             .limit(50)
+                            .map(Question::getId)   // 👈 AQUÍ está el cambio clave
                             .toList()
             );
         }
 
-        Collections.shuffle(selectedQuestions);
-        return simulacroGateway.createSimulacroAuto(selectedQuestions);
+        Collections.shuffle(selectedQuestionIds);
 
+        return simulacroGateway.createSimulacroAuto(selectedQuestionIds);
     }
     public List<Simulacro> getSimulacroByCategoria(Categoria categoria) {
         if(categoria==null){

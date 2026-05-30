@@ -34,12 +34,10 @@ class SimulacroUseCaseTest {
         //Arrange
         Simulacro simulacro = new Simulacro();
         simulacro.setCategoria(Categoria.REAL);
-        Question question = new Question();
-        Question question2 = new Question();
-        List<Question> questions = new ArrayList<>();
-        questions.add(question);
-        questions.add(question2);
-        simulacro.setQuestions(questions);
+        List<Long> questions = new ArrayList<>();
+        questions.add(1L);
+        questions.add(2L);
+        simulacro.setQuestionIds(questions);
 
         Mockito.when(simulacroGateway.createSimulacro(simulacro)).thenReturn(simulacro);
         //Act
@@ -83,7 +81,7 @@ class SimulacroUseCaseTest {
         // Arrange
         Simulacro simulacro = new Simulacro();
         simulacro.setCategoria(Categoria.REAL);
-        simulacro.setQuestions(null);
+        simulacro.setQuestionIds(null);
 
         // Act
         RuntimeException exception = assertThrows(
@@ -99,7 +97,7 @@ class SimulacroUseCaseTest {
         // Arrange
         Simulacro simulacro = new Simulacro();
         simulacro.setCategoria(Categoria.REAL);
-        simulacro.setQuestions(List.of());
+        simulacro.setQuestionIds(List.of());
 
         // Act
         RuntimeException exception = assertThrows(
@@ -114,23 +112,34 @@ class SimulacroUseCaseTest {
 
     @Test
     void createSimulacroAuto() {
-        //Arrange
-        Simulacro simulacro = new Simulacro();
-        Question question = new Question();
-        question.setArea(Area.MATEMATICAS);
-        Question question2 = new Question();
-        question2.setArea(Area.MATEMATICAS);
-        List<Question> questions = new ArrayList<>();
-        questions.add(question);
-        questions.add(question2);
-        simulacro.setQuestions(questions);
-        Mockito.when(questionGateway.getQuestions()).thenReturn(questions);
-        Mockito.when(simulacroGateway.createSimulacroAuto(questions)).thenReturn(simulacro);
 
-        //Act
-        Simulacro simulacro1= simulacroUseCase.createSimulacroAuto();
-        //Assert
-        assertEquals(simulacro, simulacro1);
+        // Arrange
+        Question question = new Question();
+        question.setId(1L);
+        question.setArea(Area.MATEMATICAS);
+
+        Question question2 = new Question();
+        question2.setId(2L);
+        question2.setArea(Area.MATEMATICAS);
+
+        List<Long> questions = List.of(question.getId(), question2.getId());
+
+        Simulacro simulacro = new Simulacro();
+        List<Long> expectedIds = List.of(1L, 2L);
+
+
+
+        Mockito.when(simulacroGateway.createSimulacroAuto(Mockito.anyList()))
+                .thenReturn(simulacro);
+
+        // Act
+        Simulacro result = simulacroUseCase.createSimulacroAuto();
+
+        // Assert
+        assertEquals(simulacro, result);
+
+        Mockito.verify(simulacroGateway)
+                .createSimulacroAuto(Mockito.anyList());
     }
 
     @Test

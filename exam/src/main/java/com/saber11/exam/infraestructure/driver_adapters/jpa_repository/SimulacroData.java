@@ -1,8 +1,6 @@
 package com.saber11.exam.infraestructure.driver_adapters.jpa_repository;
 
-import com.saber11.exam.domain.model.Area;
 import com.saber11.exam.domain.model.Categoria;
-import com.saber11.exam.domain.model.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,12 +21,12 @@ public class SimulacroData {
     private Categoria categoria;
     @Column()
     private Integer tiempoLimite;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
+    @ElementCollection
+    @CollectionTable(
             name = "exam_question",
-            joinColumns = @JoinColumn(name = "exam_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
+            joinColumns = @JoinColumn(name = "exam_id")
     )
-    private List<Question> questions;
+    @Column(name = "question_id")
+    private List<Long> questionsId;
 
 }

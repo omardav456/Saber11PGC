@@ -1,6 +1,5 @@
 package com.saber11.exam.infraestructure.driver_adapters.jpa_repository;
 
-import com.saber11.exam.domain.model.Area;
 import com.saber11.exam.domain.model.Categoria;
 import com.saber11.exam.domain.model.Question;
 import com.saber11.exam.domain.model.Simulacro;
@@ -9,7 +8,6 @@ import com.saber11.exam.infraestructure.mapper.MapperSimulacro;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -27,10 +25,10 @@ public class SimulacroDataGatewayImp implements SimulacroGateway {
     }
 
     @Override
-    public Simulacro createSimulacroAuto(List<Question> questions) {
+    public Simulacro createSimulacroAuto(List<Long> questions) {
         SimulacroData simulacroData= new SimulacroData();
         simulacroData.setCategoria(Categoria.REAL);
-        simulacroData.setQuestions(questions);
+        simulacroData.setQuestionsId(questions);
         simulacroDataJpaRepository.save(simulacroData);
         return mapperSimulacro.toSimulacro(simulacroData);
     }

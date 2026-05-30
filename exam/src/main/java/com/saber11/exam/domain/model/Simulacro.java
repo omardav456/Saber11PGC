@@ -13,6 +13,6 @@ public class Simulacro {
     private Long id;
     private Categoria categoria;
     private Integer tiempoLimite;
-    private List<Question> questions;
+    private List<Long> questionIds;
 
 }

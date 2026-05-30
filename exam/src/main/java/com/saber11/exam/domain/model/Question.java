@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-
+@Embeddable
 public class Question {
     private Long id;
     private Area area;

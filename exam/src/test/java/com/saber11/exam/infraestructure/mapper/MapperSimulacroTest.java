@@ -18,7 +18,7 @@ class MapperSimulacroTest {
     void toSimulacroMapsAllFields() {
         Question question = new Question();
         question.setId(1L);
-        List<Question> questions = List.of(question);
+        List<Long> questions = List.of(question.getId());
         SimulacroData data = new SimulacroData(1L, Categoria.REAL, 60, questions);
 
         Simulacro result = mapper.toSimulacro(data);
@@ -27,15 +27,15 @@ class MapperSimulacroTest {
         assertEquals(1L, result.getId());
         assertEquals(Categoria.REAL, result.getCategoria());
         assertEquals(60, result.getTiempoLimite());
-        assertEquals(1, result.getQuestions().size());
-        assertEquals(1L, result.getQuestions().get(0).getId());
+        assertEquals(1, result.getQuestionIds().size());
+        assertEquals(1L, result.getQuestionIds().get(0));
     }
 
     @Test
     void toSimulacroDataMapsAllFields() {
         Question question = new Question();
         question.setId(2L);
-        List<Question> questions = List.of(question);
+        List<Long> questions = List.of(question.getId());
         Simulacro simulacro = new Simulacro(2L, Categoria.REAL, 90, questions);
 
         SimulacroData result = mapper.toSimulacroData(simulacro);
@@ -44,8 +44,8 @@ class MapperSimulacroTest {
         assertEquals(2L, result.getId());
         assertEquals(Categoria.REAL, result.getCategoria());
         assertEquals(90, result.getTiempoLimite());
-        assertEquals(1, result.getQuestions().size());
-        assertEquals(2L, result.getQuestions().get(0).getId());
+        assertEquals(1, result.getQuestionsId().size());
+        assertEquals(2L, result.getQuestionsId().get(0));
     }
 
     @Test
@@ -58,7 +58,7 @@ class MapperSimulacroTest {
         assertNull(result.getId());
         assertNull(result.getCategoria());
         assertNull(result.getTiempoLimite());
-        assertNull(result.getQuestions());
+        assertNull(result.getQuestionIds());
     }
 
     @Test
@@ -71,6 +71,6 @@ class MapperSimulacroTest {
         assertNull(result.getId());
         assertNull(result.getCategoria());
         assertNull(result.getTiempoLimite());
-        assertNull(result.getQuestions());
+        assertNull(result.getQuestionsId());
     }
 }

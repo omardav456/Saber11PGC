@@ -1,7 +1,6 @@
 package com.saber11.exam.infraestructure.driver_adapters.jpa_repository;
 
 import com.saber11.exam.domain.model.Categoria;
-import com.saber11.exam.domain.model.Question;
 import com.saber11.exam.domain.model.Simulacro;
 import com.saber11.exam.infraestructure.mapper.MapperSimulacro;
 import org.junit.jupiter.api.Test;
@@ -53,23 +52,37 @@ class SimulacroDataGatewayImpTest {
 
     @Test
     void createSimulacroAutoSavesWithRealCategory() {
-        List<Question> questions = List.of(new Question(), new Question());
+
+        // Arrange
+        List<Long> questionIds = List.of(1L, 2L);
+
         SimulacroData savedData = new SimulacroData();
         savedData.setId(1L);
         savedData.setCategoria(Categoria.REAL);
-        savedData.setQuestions(questions);
+        savedData.setQuestionsId(questionIds); // 👈 CAMBIO CLAVE
 
-        when(simulacroDataJpaRepository.save(any(SimulacroData.class))).thenReturn(savedData);
-        when(mapperSimulacro.toSimulacro(any(SimulacroData.class))).thenAnswer(invocation -> {
-            SimulacroData d = invocation.getArgument(0);
-            return new Simulacro(d.getId(), d.getCategoria(), d.getTiempoLimite(), d.getQuestions());
-        });
+        when(simulacroDataJpaRepository.save(any(SimulacroData.class)))
+                .thenReturn(savedData);
 
-        Simulacro result = gateway.createSimulacroAuto(questions);
+        when(mapperSimulacro.toSimulacro(any(SimulacroData.class)))
+                .thenAnswer(invocation -> {
+                    SimulacroData d = invocation.getArgument(0);
+                    return new Simulacro(
+                            d.getId(),
+                            d.getCategoria(),
+                            d.getTiempoLimite(),
+                            d.getQuestionsId()
+                    );
+                });
 
+        // Act
+        Simulacro result = gateway.createSimulacroAuto(questionIds);
+
+        // Assert
         assertNotNull(result);
         assertEquals(Categoria.REAL, result.getCategoria());
-        assertEquals(2, result.getQuestions().size());
+        assertEquals(2, result.getQuestionIds().size());
+
         verify(simulacroDataJpaRepository).save(any(SimulacroData.class));
     }
 
