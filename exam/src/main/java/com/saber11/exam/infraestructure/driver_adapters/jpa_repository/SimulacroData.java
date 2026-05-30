@@ -19,7 +19,7 @@ public class SimulacroData {
     private Long id;
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
-    @Column()
+    @Column(nullable = true)
     private Integer tiempoLimite;
     @ElementCollection
     @CollectionTable(
