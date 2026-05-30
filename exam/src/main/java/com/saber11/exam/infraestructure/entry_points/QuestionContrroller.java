@@ -6,6 +6,7 @@ import com.saber11.exam.domain.usecase.SimulacroUseCase;
 import com.saber11.exam.infraestructure.driver_adapters.jpa_repository.SimulacroData;
 import com.saber11.exam.infraestructure.driver_adapters.jpa_repository.SimulacroDataJpaRepository;
 import com.saber11.exam.infraestructure.mapper.MapperSimulacro;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,11 @@ public class QuestionContrroller {
     public ResponseEntity<Simulacro> createSimulacro(@RequestBody SimulacroData sumulacroData){
          Simulacro simulacro= simulacroUseCase.createSimulacro(mapperSimulacro.toSimulacro(sumulacroData));
          return new ResponseEntity<>(simulacro, HttpStatus.CREATED);
+    }
+    @PostConstruct
+    public void test() {
+        System.out.println("URL_ALL_QUESTIONS = "
+                + System.getenv("URL_ALL_QUESTIONS"));
     }
 
     @PostMapping("/auto/")
