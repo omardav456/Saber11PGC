@@ -17,15 +17,16 @@ public class GlobalExceptionHandler {
         if(ex.getMessage().toLowerCase().contains("incorrecta")){
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
         }
-        if (ex.getMessage().contains("correo")) {
+        if ("El correo ya está registrado".equals(ex.getMessage())
+                || "El correo ya está registrado por otro usuario".equals(ex.getMessage())) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body("El correo ya está registrado");
+                    .body(ex.getMessage());
         }
-        if (ex.getMessage().contains("Could not commit JPA transaction")) {
+        if ("El formato del correo no es válido".equals(ex.getMessage())) {
             return ResponseEntity
                     .badRequest()
-                    .body("Correo inválido");
+                    .body(ex.getMessage());
         }
         return new ResponseEntity<>(ex.getMessage().toLowerCase(), HttpStatus.BAD_REQUEST);
     }
