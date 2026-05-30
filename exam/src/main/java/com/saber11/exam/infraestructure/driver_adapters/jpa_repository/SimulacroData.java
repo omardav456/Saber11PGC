@@ -23,7 +23,12 @@ public class SimulacroData {
     private Categoria categoria;
     @Column()
     private Integer tiempoLimite;
-    @ElementCollection
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "exam_question",
+            joinColumns = @JoinColumn(name = "exam_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
     private List<Question> questions;
 
 }
