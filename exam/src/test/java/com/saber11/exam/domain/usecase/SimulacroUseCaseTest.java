@@ -1,9 +1,6 @@
 package com.saber11.exam.domain.usecase;
 
-import com.saber11.exam.domain.model.Area;
-import com.saber11.exam.domain.model.Categoria;
-import com.saber11.exam.domain.model.Question;
-import com.saber11.exam.domain.model.Simulacro;
+import com.saber11.exam.domain.model.*;
 import com.saber11.exam.domain.model.gateway.QuestionGateway;
 import com.saber11.exam.domain.model.gateway.SimulacroGateway;
 import org.junit.jupiter.api.Test;
@@ -116,6 +113,7 @@ class SimulacroUseCaseTest {
         // Arrange
         Question question = new Question();
         question.setId(1L);
+        question.setAnswerOption(AnswerOption.A);
         question.setArea(Area.MATEMATICAS);
 
         Question question2 = new Question();
