@@ -13,7 +13,7 @@ import java.util.List;
 public class QuestionApiAdapter implements QuestionGateway {
 
     private final WebClient webClient;
-    String url= System.getenv("URL_ALL_QUESTIONS");
+    String url = System.getProperty("URL_ALL_QUESTIONS", System.getenv("URL_ALL_QUESTIONS"));
 
     @Override
     public List<Question> getQuestions() {
