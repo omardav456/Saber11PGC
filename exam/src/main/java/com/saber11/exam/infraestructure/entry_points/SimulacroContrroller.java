@@ -38,7 +38,7 @@ public class SimulacroContrroller {
         return new ResponseEntity<>(simulacro, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteSimulacro(Long id){
+    public ResponseEntity deleteSimulacro(@PathVariable Long id){
         simulacroUseCase.deleteSimulacro(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
