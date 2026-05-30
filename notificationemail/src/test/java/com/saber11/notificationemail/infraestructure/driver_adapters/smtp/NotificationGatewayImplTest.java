@@ -1,7 +1,10 @@
 package com.saber11.notificationemail.infraestructure.driver_adapters.smtp;
 
 import com.saber11.notificationemail.domain.model.Notification;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -9,27 +12,32 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.mail.javamail.JavaMailSender;
 
-import java.util.Map;
+import java.util.Properties;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class NotificationGatewayImplTest {
 
     @Mock
-    private RestTemplate restTemplate;
+    private JavaMailSender javaMailSender;
 
     @InjectMocks
     private NotificationGatewayImpl notificationGateway;
 
+    private MimeMessage mimeMessage;
+
     @Captor
-    private ArgumentCaptor<Map<String, Object>> bodyCaptor;
+    private ArgumentCaptor<MimeMessage> mimeMessageCaptor;
+
+    @BeforeEach
+    void setUp() {
+        Session session = Session.getDefaultInstance(new Properties());
+        mimeMessage = new MimeMessage(session);
+        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
+    }
 
     @Test
     void sendEmailSuccess() {
@@ -38,19 +46,10 @@ class NotificationGatewayImplTest {
         notification.setStudentName("Juan");
         notification.setPlatformLink("http://saber11.com");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenReturn(new ResponseEntity<>("OK", HttpStatus.OK));
-
         notificationGateway.sendEmail(notification);
 
-        verify(restTemplate).postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        );
+        verify(javaMailSender).send(mimeMessageCaptor.capture());
+        Assertions.assertNotNull(mimeMessageCaptor.getValue());
     }
 
     @Test
@@ -60,11 +59,7 @@ class NotificationGatewayImplTest {
         notification.setStudentName("Juan");
         notification.setPlatformLink("http://saber11.com");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenThrow(new RuntimeException("mailtrap error"));
+        when(javaMailSender.createMimeMessage()).thenThrow(new RuntimeException("SMTP error"));
 
         RuntimeException exception = Assertions.assertThrows(
                 RuntimeException.class,
@@ -80,19 +75,10 @@ class NotificationGatewayImplTest {
         notification.setTo("test@test.com");
         notification.setStudentName("Juan");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenReturn(new ResponseEntity<>("OK", HttpStatus.OK));
-
         notificationGateway.sendRegisterSuccess(notification);
 
-        verify(restTemplate).postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        );
+        verify(javaMailSender).send(mimeMessageCaptor.capture());
+        Assertions.assertNotNull(mimeMessageCaptor.getValue());
     }
 
     @Test
@@ -101,11 +87,7 @@ class NotificationGatewayImplTest {
         notification.setTo("test@test.com");
         notification.setStudentName("Juan");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenThrow(new RuntimeException("mailtrap error"));
+        when(javaMailSender.createMimeMessage()).thenThrow(new RuntimeException("SMTP error"));
 
         RuntimeException exception = Assertions.assertThrows(
                 RuntimeException.class,
@@ -122,19 +104,10 @@ class NotificationGatewayImplTest {
         notification.setStudentName("Juan");
         notification.setScore("350");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenReturn(new ResponseEntity<>("OK", HttpStatus.OK));
-
         notificationGateway.sendSimulationResult(notification);
 
-        verify(restTemplate).postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        );
+        verify(javaMailSender).send(mimeMessageCaptor.capture());
+        Assertions.assertNotNull(mimeMessageCaptor.getValue());
     }
 
     @Test
@@ -145,19 +118,10 @@ class NotificationGatewayImplTest {
         notification.setScore("350");
         notification.setPdfPath("src/test/resources/test.pdf");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenReturn(new ResponseEntity<>("OK", HttpStatus.OK));
-
         notificationGateway.sendSimulationResult(notification);
 
-        verify(restTemplate).postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        );
+        verify(javaMailSender).send(mimeMessageCaptor.capture());
+        Assertions.assertNotNull(mimeMessageCaptor.getValue());
     }
 
     @Test
@@ -167,18 +131,14 @@ class NotificationGatewayImplTest {
         notification.setStudentName("Juan");
         notification.setScore("350");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenThrow(new RuntimeException("API error"));
+        when(javaMailSender.createMimeMessage()).thenThrow(new RuntimeException("SMTP error"));
 
         RuntimeException exception = Assertions.assertThrows(
                 RuntimeException.class,
                 () -> notificationGateway.sendSimulationResult(notification)
         );
 
-        Assertions.assertEquals("API error", exception.getMessage());
+        Assertions.assertEquals("SMTP error", exception.getMessage());
     }
 
     @Test
@@ -188,19 +148,10 @@ class NotificationGatewayImplTest {
         notification.setStudentName("Juan");
         notification.setExamLink("http://exam.com");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenReturn(new ResponseEntity<>("OK", HttpStatus.OK));
-
         notificationGateway.sendExamLink(notification);
 
-        verify(restTemplate).postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        );
+        verify(javaMailSender).send(mimeMessageCaptor.capture());
+        Assertions.assertNotNull(mimeMessageCaptor.getValue());
     }
 
     @Test
@@ -211,29 +162,24 @@ class NotificationGatewayImplTest {
         notification.setScore("350");
         notification.setPdfPath("");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenReturn(new ResponseEntity<>("OK", HttpStatus.OK));
-
         notificationGateway.sendSimulationResult(notification);
 
-        verify(restTemplate).postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        );
+        verify(javaMailSender).send(mimeMessageCaptor.capture());
+        Assertions.assertNotNull(mimeMessageCaptor.getValue());
     }
 
     @Test
     void loadTemplateCatchBlockIsCovered() {
-        NotificationGatewayImpl gateway = new NotificationGatewayImpl(restTemplate) {
+        NotificationGatewayImpl gateway = new NotificationGatewayImpl(javaMailSender) {
             @Override
             protected String loadTemplate(String templateName) {
                 return super.loadTemplate("nonexistent-file.html");
             }
         };
+
+        Session session = Session.getDefaultInstance(new Properties());
+        MimeMessage msg = new MimeMessage(session);
+        when(javaMailSender.createMimeMessage()).thenReturn(msg);
 
         Notification notification = new Notification();
         notification.setTo("test@test.com");
@@ -255,17 +201,13 @@ class NotificationGatewayImplTest {
         notification.setStudentName("Juan");
         notification.setExamLink("http://exam.com");
 
-        when(restTemplate.postForEntity(
-                any(String.class),
-                any(org.springframework.http.HttpEntity.class),
-                eq(String.class)
-        )).thenThrow(new RuntimeException("API error"));
+        when(javaMailSender.createMimeMessage()).thenThrow(new RuntimeException("SMTP error"));
 
         RuntimeException exception = Assertions.assertThrows(
                 RuntimeException.class,
                 () -> notificationGateway.sendExamLink(notification)
         );
 
-        Assertions.assertEquals("API error", exception.getMessage());
+        Assertions.assertEquals("SMTP error", exception.getMessage());
     }
 }
