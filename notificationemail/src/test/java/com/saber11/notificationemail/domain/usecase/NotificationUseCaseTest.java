@@ -331,4 +331,103 @@ class NotificationUseCaseTest {
         Assertions.assertEquals("Link del simulacro obligatorio", ex.getMessage());
         verify(notificationGateway, never()).sendExamLink(any());
     }
+
+    @Test
+    void sendEmailThrowsWhenEmailFormatInvalid() {
+        // Arrange
+        Notification n = validWelcomeNotification();
+        n.setTo("invalido");
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class, () -> useCase.sendEmail(n));
+
+        Assertions.assertEquals("Formato de correo inválido", ex.getMessage());
+        verify(notificationGateway, never()).sendEmail(any());
+    }
+
+    @Test
+    void sendEmailSucceedsWhenEmailHasLeadingTrailingSpaces() {
+        // Arrange
+        Notification n = validWelcomeNotification();
+        n.setTo("  test@test.com  ");
+
+        // Act
+        String result = useCase.sendEmail(n);
+
+        // Assert
+        Assertions.assertEquals("Correo de bienvenida enviado", result);
+        verify(notificationGateway).sendEmail(n);
+    }
+
+    @Test
+    void sendEmailThrowsWhenNotificationIsNull() {
+        // Act & Assert
+        Assertions.assertThrows(NullPointerException.class, () -> useCase.sendEmail(null));
+    }
+
+    @Test
+    void sendRegisterSuccessThrowsWhenNotificationIsNull() {
+        // Act & Assert
+        Assertions.assertThrows(NullPointerException.class, () -> useCase.sendRegisterSuccess(null));
+    }
+
+    @Test
+    void sendSimulationResultThrowsWhenNotificationIsNull() {
+        // Act & Assert
+        Assertions.assertThrows(NullPointerException.class, () -> useCase.sendSimulationResult(null));
+    }
+
+    @Test
+    void sendExamLinkThrowsWhenNotificationIsNull() {
+        // Act & Assert
+        Assertions.assertThrows(NullPointerException.class, () -> useCase.sendExamLink(null));
+    }
+
+    @Test
+    void sendEmailThrowsWhenGatewayFails() {
+        // Arrange
+        Notification n = validWelcomeNotification();
+        doThrow(new RuntimeException("SMTP error")).when(notificationGateway).sendEmail(n);
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class, () -> useCase.sendEmail(n));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
+
+    @Test
+    void sendRegisterSuccessThrowsWhenGatewayFails() {
+        // Arrange
+        Notification n = validRegisterNotification();
+        doThrow(new RuntimeException("SMTP error")).when(notificationGateway).sendRegisterSuccess(n);
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class, () -> useCase.sendRegisterSuccess(n));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
+
+    @Test
+    void sendSimulationResultThrowsWhenGatewayFails() {
+        // Arrange
+        Notification n = validSimulationNotification();
+        doThrow(new RuntimeException("SMTP error")).when(notificationGateway).sendSimulationResult(n);
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class, () -> useCase.sendSimulationResult(n));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
+
+    @Test
+    void sendExamLinkThrowsWhenGatewayFails() {
+        // Arrange
+        Notification n = validExamLinkNotification();
+        doThrow(new RuntimeException("SMTP error")).when(notificationGateway).sendExamLink(n);
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class, () -> useCase.sendExamLink(n));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
 }

@@ -21,6 +21,14 @@ public class GlobalExceptionHandler {
             );
         }
 
+        if(ex.getMessage().toLowerCase().contains("enviando correo")){
+
+            return new ResponseEntity<>(
+                    ex.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+
         if(ex.getMessage().toLowerCase().contains("correo")){
 
             return new ResponseEntity<>(
@@ -36,14 +44,6 @@ public class GlobalExceptionHandler {
 
             return new ResponseEntity<>(
                     "Error con servidor de correo",
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
-        }
-
-        if(ex.getMessage().toLowerCase().contains("enviando correo")){
-
-            return new ResponseEntity<>(
-                    ex.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR
             );
         }

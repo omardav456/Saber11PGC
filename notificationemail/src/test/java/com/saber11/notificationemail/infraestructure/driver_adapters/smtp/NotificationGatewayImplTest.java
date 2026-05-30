@@ -210,4 +210,68 @@ class NotificationGatewayImplTest {
 
         Assertions.assertEquals("SMTP error", exception.getMessage());
     }
+
+    @Test
+    void sendEmailThrowsWhenJavaMailSenderSendFails() {
+        // Arrange
+        Notification notification = new Notification();
+        notification.setTo("test@test.com");
+        notification.setStudentName("Juan");
+        notification.setPlatformLink("http://saber11.com");
+        doThrow(new RuntimeException("send failed")).when(javaMailSender).send(any(MimeMessage.class));
+
+        // Act & Assert
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class,
+                () -> notificationGateway.sendEmail(notification));
+
+        Assertions.assertTrue(exception.getMessage().contains("Error enviando correo"));
+    }
+
+    @Test
+    void sendRegisterSuccessThrowsWhenJavaMailSenderSendFails() {
+        // Arrange
+        Notification notification = new Notification();
+        notification.setTo("test@test.com");
+        notification.setStudentName("Juan");
+        doThrow(new RuntimeException("send failed")).when(javaMailSender).send(any(MimeMessage.class));
+
+        // Act & Assert
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class,
+                () -> notificationGateway.sendRegisterSuccess(notification));
+
+        Assertions.assertTrue(exception.getMessage().contains("Error enviando correo"));
+    }
+
+    @Test
+    void sendSimulationResultThrowsWhenJavaMailSenderSendFails() {
+        // Arrange
+        Notification notification = new Notification();
+        notification.setTo("test@test.com");
+        notification.setStudentName("Juan");
+        notification.setScore("350");
+        doThrow(new RuntimeException("send failed")).when(javaMailSender).send(any(MimeMessage.class));
+
+        // Act & Assert
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class,
+                () -> notificationGateway.sendSimulationResult(notification));
+
+        Assertions.assertEquals("send failed", exception.getMessage());
+    }
+
+    @Test
+    void sendExamLinkThrowsWhenJavaMailSenderSendFails() {
+        // Arrange
+        Notification notification = new Notification();
+        notification.setTo("test@test.com");
+        notification.setStudentName("Juan");
+        notification.setExamLink("http://exam.com");
+        doThrow(new RuntimeException("send failed")).when(javaMailSender).send(any(MimeMessage.class));
+
+        // Act & Assert
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class,
+                () -> notificationGateway.sendExamLink(notification));
+
+        Assertions.assertEquals("send failed", exception.getMessage());
+    }
+
 }

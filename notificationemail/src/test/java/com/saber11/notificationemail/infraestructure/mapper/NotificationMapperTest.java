@@ -28,4 +28,28 @@ class NotificationMapperTest {
         Assertions.assertEquals("/path/to.pdf", result.getPdfPath());
         Assertions.assertEquals("http://saber11.com", result.getPlatformLink());
     }
+
+    @Test
+    void toNotificationWithNullRequestThrowsNPE() {
+        // Act & Assert
+        Assertions.assertThrows(NullPointerException.class,
+                () -> mapper.toNotification(null));
+    }
+
+    @Test
+    void toNotificationWithNullFields() {
+        // Arrange
+        NotificationRequest request = new NotificationRequest();
+
+        // Act
+        Notification result = mapper.toNotification(request);
+
+        // Assert
+        Assertions.assertNull(result.getTo());
+        Assertions.assertNull(result.getStudentName());
+        Assertions.assertNull(result.getScore());
+        Assertions.assertNull(result.getExamLink());
+        Assertions.assertNull(result.getPdfPath());
+        Assertions.assertNull(result.getPlatformLink());
+    }
 }

@@ -106,4 +106,75 @@ class NotificationControllerTest {
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals("Link simulacro enviado", response.getBody());
     }
+
+    @Test
+    void sendEmailThrowsWhenUseCaseFails() {
+        // Arrange
+        NotificationRequest request = new NotificationRequest();
+        request.setTo("test@test.com");
+        request.setStudentName("Juan");
+        request.setPlatformLink("http://saber11.com");
+        Notification notification = new Notification();
+        when(notificationMapper.toNotification(request)).thenReturn(notification);
+        when(notificationUseCase.sendEmail(notification)).thenThrow(new RuntimeException("SMTP error"));
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class,
+                () -> controller.sendEmail(request));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
+
+    @Test
+    void sendRegisterThrowsWhenUseCaseFails() {
+        // Arrange
+        NotificationRequest request = new NotificationRequest();
+        request.setTo("test@test.com");
+        request.setStudentName("Juan");
+        Notification notification = new Notification();
+        when(notificationMapper.toNotification(request)).thenReturn(notification);
+        when(notificationUseCase.sendRegisterSuccess(notification)).thenThrow(new RuntimeException("SMTP error"));
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class,
+                () -> controller.sendRegisterSuccess(request));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
+
+    @Test
+    void sendResultThrowsWhenUseCaseFails() {
+        // Arrange
+        NotificationRequest request = new NotificationRequest();
+        request.setTo("test@test.com");
+        request.setStudentName("Juan");
+        request.setScore("350");
+        Notification notification = new Notification();
+        when(notificationMapper.toNotification(request)).thenReturn(notification);
+        when(notificationUseCase.sendSimulationResult(notification)).thenThrow(new RuntimeException("SMTP error"));
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class,
+                () -> controller.sendSimulationResult(request));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
+
+    @Test
+    void sendLinkThrowsWhenUseCaseFails() {
+        // Arrange
+        NotificationRequest request = new NotificationRequest();
+        request.setTo("test@test.com");
+        request.setStudentName("Juan");
+        request.setExamLink("http://exam.com");
+        Notification notification = new Notification();
+        when(notificationMapper.toNotification(request)).thenReturn(notification);
+        when(notificationUseCase.sendExamLink(notification)).thenThrow(new RuntimeException("SMTP error"));
+
+        // Act & Assert
+        RuntimeException ex = Assertions.assertThrows(RuntimeException.class,
+                () -> controller.sendExamLink(request));
+
+        Assertions.assertEquals("SMTP error", ex.getMessage());
+    }
 }
