@@ -19,6 +19,15 @@ public class SimulacroUseCase {
     private final QuestionGateway questionGateway;
 
     public Simulacro createSimulacro(Simulacro simulacro) {
+        if(simulacro==null){
+            throw new RuntimeException("simulacro is null");
+        } else if (simulacro.getCategoria()==null) {
+            throw new RuntimeException("simulacro.categoria is null");
+        }else if (simulacro.getQuestions()==null) {
+            throw new RuntimeException("simulacro.questions is null");
+        }else if (simulacro.getQuestions().size()==0) {
+            throw new RuntimeException("simulacro.questions is empty");
+        }
         return simulacroGateway.createSimulacro(simulacro);
 
     }
@@ -48,13 +57,26 @@ public class SimulacroUseCase {
 
     }
     public List<Simulacro> getSimulacroByCategoria(Categoria categoria) {
+        if(categoria==null){
+            throw new RuntimeException("categoria is null");
+        }
         return simulacroGateway.getSimulacroByCategoria(categoria);
     }
 
     public void deleteSimulacro(Long id){
+        if(id==null){
+            throw new RuntimeException("id is null");
+        }else if(id==0){
+            throw new RuntimeException("id cant be 0");
+        }
         simulacroGateway.deleteSimulacro(id);
     }
     public Simulacro getSimulacroById(Long id){
+        if(id==null){
+            throw new RuntimeException("id is null");
+        }else if(id==0){
+            throw new RuntimeException("id cant be 0");
+        }
         return simulacroGateway.getSimulacroById(id);
     }
 
