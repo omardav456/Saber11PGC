@@ -5,12 +5,15 @@ import com.saber11.auth.domain.model.User;
 import com.saber11.auth.domain.usecase.UserUseCase;
 import com.saber11.auth.infraestructure.driver_adapters.jpa_repository.UserData;
 import com.saber11.auth.infraestructure.dto.LoginRequest;
+import com.saber11.auth.infraestructure.dto.UserProfileResponse;
 import com.saber11.auth.infraestructure.dto.UserResponse;
 import com.saber11.auth.infraestructure.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/saber11/user")
@@ -71,6 +74,21 @@ public class UserController {
         );
 
         return new ResponseEntity<>(answer, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<UserProfileResponse>> getAllUsers(
+            @RequestHeader(value = "admincedula") String adminCedula){
+
+        List<User> users = userUseCase.getAllUsers(adminCedula);
+        return new ResponseEntity<>(userMapper.toUserProfileResponseList(users), HttpStatus.OK);
+    }
+
+    @GetMapping("/{cedula}/profile")
+    public ResponseEntity<UserProfileResponse> getUserProfile(@PathVariable String cedula){
+
+        User user = userUseCase.getUserProfile(cedula);
+        return new ResponseEntity<>(userMapper.toUserProfileResponse(user), HttpStatus.OK);
     }
 
 }

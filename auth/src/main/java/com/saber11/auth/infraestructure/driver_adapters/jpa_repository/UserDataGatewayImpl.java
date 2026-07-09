@@ -8,6 +8,9 @@ import com.saber11.auth.infraestructure.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 @RequiredArgsConstructor
 public class UserDataGatewayImpl implements UserGateway {
@@ -62,6 +65,12 @@ public class UserDataGatewayImpl implements UserGateway {
         UserData userData = userDataJpaRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         return userMapper.toUser(userData);
+    }
+    @Override
+    public List<User> findAll(){
+        return userDataJpaRepository.findAll().stream()
+                .map(userMapper::toUser)
+                .collect(Collectors.toList());
     }
 
     @Override

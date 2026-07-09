@@ -7,6 +7,7 @@ import com.saber11.auth.domain.model.gateway.UserGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
@@ -140,7 +141,35 @@ public class UserUseCase {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        return user.getRol();
+        return user.getCedula();
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getAllUsers(String adminCedula){
+        validateAdmin(adminCedula);
+        return userGateway.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserProfile(String cedula){
+        User user = userGateway.searchUserCC(cedula);
+        if(user == null){
+            throw new RuntimeException("Usuario no encontrado");
+        }
+        return user;
+    }
+
+    private void validateAdmin(String adminCedula) {
+        if (adminCedula == null || adminCedula.isBlank()) {
+            throw new RuntimeException("Se requiere un administrador");
+        }
+        User admin = userGateway.searchUserCC(adminCedula);
+        if (admin == null) {
+            throw new RuntimeException("Administrador no encontrado");
+        }
+        if (admin.getRol() != Rol.ADMINISTRADOR) {
+            throw new RuntimeException("Solo un administrador puede realizar esta acción");
+        }
     }
 
     private void validateRoleAssignment(Rol targetRol, String adminCedula) {
