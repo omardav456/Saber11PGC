@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/saber11/simulacro")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class SimulacroContrroller {
     private final SimulacroUseCase simulacroUseCase;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/saber11/user")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserController {
     private final UserUseCase userUseCase;
