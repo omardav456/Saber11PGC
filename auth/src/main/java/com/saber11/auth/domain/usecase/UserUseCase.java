@@ -1,12 +1,11 @@
 package com.saber11.auth.domain.usecase;
 
-import lombok.RequiredArgsConstructor;
-
 import com.saber11.auth.domain.model.Rol;
 import com.saber11.auth.domain.model.User;
 import com.saber11.auth.domain.model.gateway.EncryptGateway;
 import com.saber11.auth.domain.model.gateway.UserGateway;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.regex.Pattern;
 
@@ -17,6 +16,7 @@ public class UserUseCase {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
+    @Transactional
     public User saveUser(User user, String adminCedula) {
 
         if (user.getCedula() == null || user.getCedula().isBlank()) {
@@ -58,6 +58,7 @@ public class UserUseCase {
         return userGateway.saveUser(user);
     }
 
+    @Transactional
     public User actuUser(User user, String adminCedula){
         if(user.getCedula() == null){
             throw new RuntimeException("La cédula es obligatoria");
@@ -104,6 +105,7 @@ public class UserUseCase {
         return userGateway.actuUser(user);
     }
 
+    @Transactional(readOnly = true)
     public User searchUserCC(String cedula){
         User usuario = userGateway.searchUserCC(cedula);
 
@@ -114,6 +116,7 @@ public class UserUseCase {
         return usuario;
     }
 
+    @Transactional
     public void deleteUserCC(String cedula){
         User user = userGateway.searchUserCC(cedula);
 
@@ -124,6 +127,7 @@ public class UserUseCase {
         userGateway.deleteUserCC(cedula);
     }
 
+    @Transactional(readOnly = true)
     public String login(String correo, String password){
         if(correo == null || password == null){
             throw new RuntimeException("Correo y contraseña obligatorios");

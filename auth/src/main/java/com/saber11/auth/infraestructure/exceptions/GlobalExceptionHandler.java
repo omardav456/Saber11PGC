@@ -1,5 +1,6 @@
 package com.saber11.auth.infraestructure.exceptions;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +29,10 @@ public class GlobalExceptionHandler {
                     .badRequest()
                     .body(ex.getMessage());
         }
+        if(ex instanceof DataIntegrityViolationException){
+            return new ResponseEntity<>("El correo o cédula ya están registrados", HttpStatus.CONFLICT);
+        }
+
         return new ResponseEntity<>(ex.getMessage().toLowerCase(), HttpStatus.BAD_REQUEST);
     }
 
