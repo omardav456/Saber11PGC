@@ -140,7 +140,7 @@ public class UserUseCase {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        return user.getCedula();
+        return user.getRol();
     }
 
     private void validateRoleAssignment(Rol targetRol, String adminCedula) {
